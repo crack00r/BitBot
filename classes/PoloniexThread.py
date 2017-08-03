@@ -83,4 +83,4 @@ class PoloniexThread:
             self.latestPrice = self.waitForHighestBid()
             print("======================================")
             print("TIME TO SELL")
-            print( self.exchange.sell(self.coin, self.latestPrice * (1 + self.config.getfloat('general', 'PROFITMARGIN')), round( self.coinBalance, 8 )) )
+            print( self.exchange.sell(self.coin, self.latestPrice, round( self.coinBalance, 8 )) )
