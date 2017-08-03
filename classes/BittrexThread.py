@@ -82,4 +82,4 @@ class BittrexThread:
             self.latestPrice = self.waitForHighestBid()
             print("======================================")
             print("TIME TO SELL")
-            print( self.exchange.sell_limit(self.coin, round( self.quantity / self.rate, 8 ), self.latestPrice * (1 + self.config.getfloat('general', 'PROFITMARGIN'))) )
+            print( self.exchange.sell_limit(self.coin, round( self.quantity / self.rate, 8 ), self.lastPrice) )
