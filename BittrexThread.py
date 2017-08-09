@@ -13,7 +13,7 @@ class BittrexThread:
         self.coin = "BTC-" + coin
         self.plainCoin = coin
 
-        self.quantity = self.config.getfloat('general', 'AMOUNT_BTC_PER_TRADE')
+        self.quantity = self.config.getfloat('general', 'AMOUNT_BTC_PER_TRADE_B')
 
         self.balance = self.exchange.get_balance(coin)
         self.coinBalance = self.balance['result']['Available']
@@ -30,7 +30,7 @@ class BittrexThread:
         return cars['result']['Ask'] + cars['result']['Ask'] * self.config.getfloat('general', 'PERCENT_ADD_ASK')
 
     def buy(self):
-        self.ask = round(self.config.getfloat('general', 'AMOUNT_BTC_PER_TRADE') / self.rate, 8)
+        self.ask = round(self.config.getfloat('general', 'AMOUNT_BTC_PER_TRADE_B') / self.rate, 8)
         return self.exchange.buy_limit(self.coin, self.ask, self.rate)
 
 
@@ -82,4 +82,4 @@ class BittrexThread:
             self.latestPrice = self.waitForHighestBid()
             print("======================================")
             print("TIME TO SELL")
-            print( self.exchange.sell_limit(self.coin, round( self.quantity / self.rate, 8 ), self.lastPrice) )
+            print( self.exchange.sell_limit(self.coin, round( self.quantity / self.rate, 8 ), self.latestPrice * (1 + self.config.getfloat('general', 'PROFITMARGIN'))) )
