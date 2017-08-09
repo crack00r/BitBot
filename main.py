@@ -31,11 +31,13 @@ while True:
 
     if(lastpair!=currpair):
         legitExchange = False
+        # Pruefen ob Poloniex oder Bittrex  Wenn ja Transaktion freigeben
         if (exchange == "Poloniex"):
             legitExchange = True
         if (exchange == "Bittrex"):
             legitExchange = True
         
+        # Transaktion freigegeben
         if legitExchange:
             if (exchange == "Bittrex"):
                 thread.start_new(BittrexThread.BittrexThread, (currency,))
@@ -43,4 +45,4 @@ while True:
                 thread.start_new(PoloniexThread.PoloniexThread, (currency,))
 
             lastpair = currpair
-    time.sleep(random.randint(1,1))
+    time.sleep(random.randint(1,3))
