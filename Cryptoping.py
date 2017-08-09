@@ -48,12 +48,12 @@ class Cryptoping(object):
 
     def getCurrencyAndExchange(self, html):
         soup = BeautifulSoup(html, "lxml")
-        table = soup.find("table", {"class": "results"})
-
+        table = soup.find("table", {"class":"results-table full-width"})
+        tbody = table.find_all('tbody')
         tr = table.find_all('tr')[1]
         tds = tr.find_all('td')
-        currency = tds[0].find('a').text.strip()
-        exchange = tds[-1].find('a').text.strip()
+        currency = tds[0].text.strip().split('\n')[0]
+        exchange = tds[-1].text.strip()
         return currency, exchange
 
     def refreshAndGetData(self):
