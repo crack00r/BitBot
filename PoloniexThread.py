@@ -1,8 +1,8 @@
-
 import ConfigParser
 from Poloniex import Poloniex
 import json
 import time
+
 
 class PoloniexThread:
 
@@ -14,7 +14,7 @@ class PoloniexThread:
         self.coin = "BTC_" + coin
         self.plainCoin = coin
 
-        self.quantity = self.config.getfloat('general', 'AMOUNT_BTC_PER_TRADE')
+        self.quantity = self.config.getfloat('general', 'AMOUNT_BTC_PER_TRADE_P')
 
         self.balance = float( self.exchange.returnBalances()[coin] )
         self.coinBalance = float( self.balance )
@@ -31,7 +31,7 @@ class PoloniexThread:
         return round(float(cars[self.coin]['lowestAsk']) + float(cars[self.coin]['lowestAsk']) * self.config.getfloat('general', 'PERCENT_ADD_ASK'), 8)
 
     def buy(self):
-        self.ask = round(self.config.getfloat('general', 'AMOUNT_BTC_PER_TRADE') / self.rate, 8)
+        self.ask = round(self.config.getfloat('general', 'AMOUNT_BTC_PER_TRADE_P') / self.rate, 8)
         return self.exchange.buy(self.coin, self.rate, self.ask)
 
 
@@ -84,4 +84,4 @@ class PoloniexThread:
             self.latestPrice = self.waitForHighestBid()
             print("======================================")
             print("TIME TO SELL")
-            print( self.exchange.sell(self.coin, self.latestPrice, round( self.coinBalance, 8 )) )
+            print( self.exchange.sell(self.coin, self.latestPrice * (1 + self.config.getfloat('general', 'PROFITMARGIN')), round( self.coinBalance, 8 )) )
