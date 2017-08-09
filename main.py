@@ -5,7 +5,7 @@ import random
 from bs4 import BeautifulSoup
 import pandas as pd
 from coinigy import *
-from classes import Cryptoping, HandlerThread, BittrexThread, PoloniexThread
+import Cryptoping, HandlerThread, BittrexThread, PoloniexThread
 import ConfigParser
 import thread
 
