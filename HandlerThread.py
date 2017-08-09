@@ -1,4 +1,3 @@
-
 import ConfigParser
 
 import time
@@ -146,3 +145,4 @@ class HandlerThread:
             self.trader.add_order(self.auth_id, self.exch_id, self.mkt_id, 2, 3, 0.995 * latestBid, self.new_amount_avail)
             print("=====================================")
             time.sleep(1)
+
