@@ -4,8 +4,7 @@ import datetime
 import random
 from bs4 import BeautifulSoup
 import pandas as pd
-from coinigy import *
-import Cryptoping, HandlerThread, BittrexThread, PoloniexThread
+import HandlerThread, PoloniexThread
 import ConfigParser
 import thread
 
@@ -25,7 +24,6 @@ while True:
     if firstRun:
         lastpair=currency+exchange
         firstRun = False
-    # currpair - z.B. BTXBittrex
     currpair=currency+exchange
 
 
@@ -34,13 +32,9 @@ while True:
         # Pruefen ob Poloniex oder Bittrex  Wenn ja Transaktion freigeben
         if (exchange == "Poloniex"):
             legitExchange = True
-        if (exchange == "Bittrex"):
-            legitExchange = True
-        
+       
         # Transaktion freigegeben
         if legitExchange:
-            if (exchange == "Bittrex"):
-                thread.start_new(BittrexThread.BittrexThread, (currency,))
             if (exchange == "Poloniex"):
                 thread.start_new(PoloniexThread.PoloniexThread, (currency,))
 
