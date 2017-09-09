@@ -1,13 +1,10 @@
 import ConfigParser
-
 import time
 import datetime
 
-from coinigy import *
-
 class HandlerThread:
     """
-    Handles an changing market on bittrex / poloniex
+    Handles an changing market on poloniex
     """
 
     def __init__(self, currency, exchange, auth_id, exch_id):
@@ -23,13 +20,6 @@ class HandlerThread:
 
         self.config = ConfigParser.ConfigParser()
         self.config.read("config.ini")
-
-        # Setup Coinigy REST API Client
-        self.acc = credentials
-        self.acc.api = self.config.get('coinigy', 'key')
-        self.acc.secret = self.config.get('coinigy', 'secret')
-        self.acc.endpoint = self.config.get('coinigy', 'endpoint')
-        self.trader = CoinigyREST(self.acc)
 
         # Run Forrest, run!
         self.handle()
